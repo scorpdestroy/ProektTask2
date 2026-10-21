@@ -1,0 +1,22 @@
+
+site_name: Task Manager Documentation
+site_description: Документация учебного проекта Task Manager
+
+theme:
+  name: material
+  language: ru
+
+nav:
+  - Главная: index.md
+  - API-документация: api.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [.]
+          options:
+            show_source: true
+            show_root_heading: true
+            members_order: source
