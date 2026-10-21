@@ -16,3 +16,10 @@ class TaskManager:
 
     def get_tasks(self):
         return self.tasks
+
+    def search_tasks(self, query):
+        """Поиск задач по части названия без учёта регистра."""
+        return [
+            task for task in self.tasks
+            if query.lower() in task["title"].lower()
+        ]
