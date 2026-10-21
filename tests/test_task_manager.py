@@ -54,9 +54,9 @@ def test_whitespace_task(manager):
     with pytest.raises(ValueError):
         manager.add_task("   ")
 
-
+# Sipmply a new line
 def test_initial_tasks_empty(manager):
-    """Проверка пустого списка при создании."""
+    """Проверка пустого списка пgри создании."""
     assert manager.get_tasks() == []
 
 
@@ -69,3 +69,56 @@ def test_complete_one_of_multiple_tasks(manager):
 
     assert manager.get_tasks()[0]["done"] is True
     assert manager.get_tasks()[1]["done"] is False
+
+
+def test_search_tasks(manager):
+    """Поиск задачи по части названия."""
+    manager.add_task("Изучить GitHub Actions")
+    manager.add_task("Написать тесты")
+    manager.add_task("Изучить Python")
+
+    results = manager.search_tasks("Изучить")
+
+    assert len(results) == 2
+
+
+def test_search_case_insensitive(manager):
+    """Поиск без учёта регистра."""
+    manager.add_task("Изучить Python")
+
+    results = manager.search_tasks("python")
+
+    assert len(results) == 1
+    assert results[0]["title"] == "Изучить Python"
+
+
+def test_search_no_results(manager):
+    """Поиск отсутствующей задачи."""
+    manager.add_task("Написать тесты")
+
+    results = manager.search_tasks("Java")
+
+    assert results == []
+    
+
+def test_complete_task_invalid_index(manager):
+    """Проверка запрета отрицательного индекса."""
+    manager.add_task("Первая задача")
+    manager.add_task("Вторая задача")
+
+    with pytest.raises(IndexError):
+        manager.complete_task(-1)
+
+    assert manager.get_tasks()[1]["done"] is False
+
+
+def test_delete_task_invalid_index(manager):
+    """Проверка запрета удаления по отрицательному индексу."""
+    manager.add_task("Первая задача")
+    manager.add_task("Вторая задача")
+
+    with pytest.raises(IndexError):
+        manager.delete_task(-1)
+
+    assert len(manager.get_tasks()) == 2
+
