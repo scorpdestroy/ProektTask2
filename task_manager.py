@@ -5,11 +5,11 @@ __version__ = "1.0.0"
 class TaskManager:
     """Класс для создания, поиска и управления задачами."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Создаёт пустой список задач."""
         self.tasks = []
 
-    def add_task(self, title):
+    def add_task(self, title: str) -> None:
         """Добавляет задачу с указанным названием.
 
         Args:
@@ -22,7 +22,7 @@ class TaskManager:
             raise ValueError("Название задачи не может быть пустым")
         self.tasks.append({"title": title, "done": False})
 
-    def complete_task(self, index):
+    def complete_task(self, index: int) -> None:
         """Помечает задачу как выполненную.
 
         Args:
@@ -35,7 +35,7 @@ class TaskManager:
             raise IndexError("Некорректный индекс задачи")
         self.tasks[index]["done"] = True
 
-    def delete_task(self, index):
+    def delete_task(self, index: int) -> None:
         """Удаляет задачу по индексу.
 
         Args:
@@ -48,11 +48,11 @@ class TaskManager:
             raise IndexError("Некорректный индекс задачи")
         self.tasks.pop(index)
 
-    def get_tasks(self):
+    def get_tasks(self) -> list[dict]:
         """Возвращает список всех задач."""
         return self.tasks
 
-    def search_tasks(self, query):
+    def search_tasks(self, query: str) -> list[dict]:
         """Ищет задачи по части названия без учёта регистра.
 
         Args:
