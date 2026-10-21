@@ -54,7 +54,7 @@ def test_whitespace_task(manager):
     with pytest.raises(ValueError):
         manager.add_task("   ")
 
-
+# Sipmply a new line
 def test_initial_tasks_empty(manager):
     """Проверка пустого списка при создании."""
     assert manager.get_tasks() == []
